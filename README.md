@@ -185,4 +185,54 @@ to find all the Available books use the following commad:
 
  db.BooksCollection.find({available: true})
 
+ UPDATE:
+
+ update Book availability using $set use the following commad :
+
+ db.BooksCollection.updateOne({ _id: 3 }, { $set: { available: false } })
+
+ outcome:
+
+ {
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+add genre to Book $addToSet
+
+db.BooksCollection.updateOne({ _id: 8 }, { $addToSet: { genres: "Epic" } })
+
+Add a borrowed book to a patron’s record (_id: 5)
+
+
+
+ Advanced Queries with Operators
+
+
+Find Books Published After 1950 (Using $gt)
+
+db.BooksCollection.find({ published_year: { $gt: 1950 } })
+
+Find All American Authors (Using $eq)
+
+db.AuthorsCollection.find({ nationality: { $eq: "American" } })
+
+Find All Books That Are Available And Published After 1950
+
+ db.BooksCollection.find({ available: true, published_year: { $gt: 1950 } })
+
+Find authors whose names contain "George" (Using $regex)
+
+db.AuthorsCollection.find({ name: { $regex: /George/ } })
+
+Increment the published year of "1869" by 1 (Using $inc)
+
+db.BooksCollection.updateOne({ published_year: 1869 }, { $inc: { published_year: 1 } })
+
+Set All Books To Available (Using $set)
+
+db.BooksCollection.updateMany({}, { $set: { available: true } })
  
